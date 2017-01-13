@@ -229,15 +229,19 @@ function GenerateRentalPrices(cars, rentals)
 			{
 				let numberOfDays = ReturnNumberOfDays(rental.returnDate, rental.pickupDate);
 				let commission;
+				let additionalFee = rental.options.deductibleReduction === true ? numberOfDays * 4 : 0;
+
 				rental.price = ComputePrice(car.pricePerDay * numberOfDays, car.pricePerKm * rental.distance, numberOfDays);
 				commission = rental.price * 0.3;
 				// Commission are half of the 30%
 				rental.commission.insurance = commission / 2;
 				// Assistance is 1€ per day
 				rental.commission.assistance = numberOfDays;
-				// Drivy takes the rest of the 30%
-				rental.commission.drivy = commission - rental.commission.insurance - rental.commission.assistance;
+				// Drivy takes the rest of the 30% + options
+				rental.commission.drivy = commission - rental.commission.insurance - rental.commission.assistance + additionalFee;
 
+				// Additional fee is added to the price at the end and not taken for commis
+				rental.price += additionalFee;
 			}
 		}
 	}
@@ -252,7 +256,7 @@ function GenerateRentalPrices(cars, rentals)
  */
 function ReturnNumberOfDays(returnDate, pickupDate)
 {
-	return (new Date(returnDate).getDay() - new Date(pickupDate).getDay()) + 1;
+	return Math.ceil(((new Date(returnDate) - new Date(pickupDate)) / (1000 * 24 * 3600))) + 1;
 }
 /**
  *  @brief Computes the price of the current rental
@@ -283,7 +287,6 @@ function ComputePrice(time, distance, numberOfDays)
 	}
 	return (+time + distance) * rate;
 }
-
 
 GenerateRentalPrices(cars, rentals);
 console.log(rentals);
