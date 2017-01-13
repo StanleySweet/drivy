@@ -2,19 +2,16 @@
 
 //list of cars
 //useful for ALL exercises
-let cars = [
-	{
+let cars = [{
 		'id': 'p306',
 		'vehicule': 'peugeot 306',
 		'pricePerDay': 20,
 		'pricePerKm': 0.10
-	},
-	{
+	}, {
 		'id': 'rr-sport',
 		'pricePerDay': 60,
 		'pricePerKm': 0.30
-	},
-	{
+	}, {
 		'id': 'p-boxster',
 		'pricePerDay': 100,
 		'pricePerKm': 0.45
@@ -26,11 +23,9 @@ let cars = [
 //The `price` is updated from exercice 1
 //The `commission` is updated from exercice 3
 //The `options` is useful from exercice 4
-let rentals = [
-	{
+let rentals = [{
 		'id': '1-pb-92',
-		'driver':
-		{
+		'driver': {
 			'firstName': 'Paul',
 			'lastName': 'Bismuth'
 		},
@@ -38,22 +33,18 @@ let rentals = [
 		'pickupDate': '2016-01-02',
 		'returnDate': '2016-01-02',
 		'distance': 100,
-		'options':
-		{
+		'options': {
 			'deductibleReduction': false
 		},
 		'price': 0,
-		'commission':
-		{
+		'commission': {
 			'insurance': 0,
 			'assistance': 0,
 			'drivy': 0
 		}
-	},
-	{
+	}, {
 		'id': '2-rs-92',
-		'driver':
-		{
+		'driver': {
 			'firstName': 'Rebecca',
 			'lastName': 'Solanas'
 		},
@@ -61,22 +52,18 @@ let rentals = [
 		'pickupDate': '2016-01-05',
 		'returnDate': '2016-01-09',
 		'distance': 300,
-		'options':
-		{
+		'options': {
 			'deductibleReduction': true
 		},
 		'price': 0,
-		'commission':
-		{
+		'commission': {
 			'insurance': 0,
 			'assistance': 0,
 			'drivy': 0
 		}
-	},
-	{
+	}, {
 		'id': '3-sa-92',
-		'driver':
-		{
+		'driver': {
 			'firstName': ' Sami',
 			'lastName': 'Ameziane'
 		},
@@ -84,13 +71,11 @@ let rentals = [
 		'pickupDate': '2015-12-01',
 		'returnDate': '2015-12-15',
 		'distance': 1000,
-		'options':
-		{
+		'options': {
 			'deductibleReduction': true
 		},
 		'price': 0,
-		'commission':
-		{
+		'commission': {
 			'insurance': 0,
 			'assistance': 0,
 			'drivy': 0
@@ -100,91 +85,73 @@ let rentals = [
 
 //list of actors for payment
 //useful from exercise 5
-let actors = [
-	{
+let actors = [{
 		'rentalId': '1-pb-92',
-		'payment': [
-			{
+		'payment': [{
 				'who': 'driver',
 				'type': 'debit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'owner',
 				'type': 'credit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'insurance',
 				'type': 'credit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'assistance',
 				'type': 'credit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'drivy',
 				'type': 'credit',
 				'amount': 0
 			}
 		]
-	},
-	{
+	}, {
 		'rentalId': '2-rs-92',
-		'payment': [
-			{
+		'payment': [{
 				'who': 'driver',
 				'type': 'debit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'owner',
 				'type': 'credit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'insurance',
 				'type': 'credit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'assistance',
 				'type': 'credit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'drivy',
 				'type': 'credit',
 				'amount': 0
 			}
 		]
-	},
-	{
+	}, {
 		'rentalId': '3-sa-92',
-		'payment': [
-			{
+		'payment': [{
 				'who': 'driver',
 				'type': 'debit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'owner',
 				'type': 'credit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'insurance',
 				'type': 'credit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'assistance',
 				'type': 'credit',
 				'amount': 0
-			},
-			{
+			}, {
 				'who': 'drivy',
 				'type': 'credit',
 				'amount': 0
@@ -195,13 +162,11 @@ let actors = [
 
 //list of rental modifcation
 //useful for exercise 6
-let rentalModifications = [
-	{
+let rentalModifications = [{
 		'rentalId': '1-pb-92',
 		'returnDate': '2016-01-04',
 		'distance': 150
-	},
-	{
+	}, {
 		'rentalId': '3-sa-92',
 		'pickupDate': '2015-12-05'
 	}
@@ -219,32 +184,75 @@ console.log(rentalModifications);
  *  @param [in] rentals object containing the rentals list
  *
  */
-function GenerateRentalPrices(cars, rentals)
-{
-	for (let rental of rentals)
-	{
-		for (let car of cars)
-		{
-			if (car.id === rental.carId)
-			{
-				let numberOfDays = ReturnNumberOfDays(rental.returnDate, rental.pickupDate);
-				let commission;
-				let additionalFee = rental.options.deductibleReduction === true ? numberOfDays * 4 : 0;
-
-				rental.price = ComputePrice(car.pricePerDay * numberOfDays, car.pricePerKm * rental.distance, numberOfDays);
-				commission = rental.price * 0.3;
-				// Commission are half of the 30%
-				rental.commission.insurance = commission / 2;
-				// Assistance is 1€ per day
-				rental.commission.assistance = numberOfDays;
-				// Drivy takes the rest of the 30% + options
-				rental.commission.drivy = commission - rental.commission.insurance - rental.commission.assistance + additionalFee;
-
-				// Additional fee is added to the price at the end and not taken for commis
-				rental.price += additionalFee;
+function GenerateRentalPrices(actors, cars, rentals) {
+	for (let rental of rentals) {
+		for (let car of cars) {
+			if (car.id === rental.carId) {
+				UpdateRental(car, rental);
+			}
+		}
+		for (let actor of actors) {
+			if (rental.id === actor.rentalId) {
+				UpdateActor(actor, rental);
 			}
 		}
 	}
+}
+
+/**
+ * Updates the actor payments object
+ *  @param [in] actor The actor payment list that should be updated
+ *  @param [in] rental The rental which match the payment
+ *
+ */
+function UpdateActor(actor, rental) {
+	for (let pay of actor.payment) {
+		switch (pay.who) {
+		case "driver":
+			pay.amount = rental.price;
+			break;
+		case "owner":
+			pay.amount = rental.price - rental.commission.insurance - rental.commission.assistance - rental.commission.drivy;
+			break;
+		case "insurance":
+			pay.amount = rental.commission.insurance;
+			break;
+		case "assistance":
+			pay.amount = rental.commission.assistance;
+			break;
+		case "drivy":
+			pay.amount = rental.commission.drivy;
+			break;
+		default:
+			console.log("Object is malformed.");
+			break;
+		}
+	}
+
+}
+
+/**
+ * Updates the actor payments object
+ *  @param [in] actor the car that was used by the driver
+ *  @param [in] rental The rental which match the payment
+ *
+ */
+function UpdateRental(car, rental) {
+	let numberOfDays = ReturnNumberOfDays(rental.returnDate, rental.pickupDate);
+	let commission;
+	let additionalFee = rental.options.deductibleReduction === true ? numberOfDays * 4 : 0;
+
+	rental.price = ComputePrice(car.pricePerDay * numberOfDays, car.pricePerKm * rental.distance, numberOfDays);
+	commission = rental.price * 0.3;
+	// Commission are half of the 30%
+	rental.commission.insurance = commission / 2;
+	// Assistance is 1€ per day
+	rental.commission.assistance = numberOfDays;
+	// Drivy takes the rest of the 30% + options
+	rental.commission.drivy = commission - rental.commission.insurance - rental.commission.assistance + additionalFee;
+
+	// Additional fee is added to the price at the end and not taken for commis
+	rental.price += additionalFee;
 }
 /**
  *  @brief Return the number of days between two dates
@@ -254,8 +262,7 @@ function GenerateRentalPrices(cars, rentals)
  *  @return The number of days between the two dates
  *
  */
-function ReturnNumberOfDays(returnDate, pickupDate)
-{
+function ReturnNumberOfDays(returnDate, pickupDate) {
 	return Math.ceil(((new Date(returnDate) - new Date(pickupDate)) / (1000 * 24 * 3600))) + 1;
 }
 /**
@@ -266,11 +273,9 @@ function ReturnNumberOfDays(returnDate, pickupDate)
  *  @return time + distance
  *
  */
-function ComputePrice(time, distance, numberOfDays)
-{
+function ComputePrice(time, distance, numberOfDays) {
 	let rate;
-	switch (numberOfDays)
-	{
+	switch (numberOfDays) {
 	case 1:
 		rate = 1;
 		break;
@@ -288,5 +293,5 @@ function ComputePrice(time, distance, numberOfDays)
 	return (+time + distance) * rate;
 }
 
-GenerateRentalPrices(cars, rentals);
+GenerateRentalPrices(actors, cars, rentals);
 console.log(rentals);
