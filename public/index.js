@@ -227,7 +227,8 @@ function GenerateRentalPrices(cars, rentals)
 		{
 			if (car.id === rental.carId)
 			{
-				rental.price = ComputePrice(car.pricePerDay * ReturnNumberOfDays(rental.returnDate, rental.pickupDate), car.pricePerKm * rental.distance);
+				let numberOfDays = ReturnNumberOfDays(rental.returnDate, rental.pickupDate);
+				rental.price = ComputePrice(car.pricePerDay * numberOfDays, car.pricePerKm * rental.distance, numberOfDays);
 			}
 		}
 	}
@@ -252,7 +253,24 @@ function ReturnNumberOfDays(returnDate, pickupDate)
  *  @return time + distance
  *
  */
-function ComputePrice(time, distance)
+function ComputePrice(time, distance, numberOfDays)
 {
-	return +time + distance;
+	let rate;
+	switch (numberOfDays)
+	{
+	case 1:
+		rate = 1;
+		break;
+	case 2:
+		rate = 0.9;
+		break;
+	case 5:
+		rate = 0.7;
+		break;
+	case 11:
+	default:
+		rate = 0.5;
+		break;
+	}
+	return (+time + distance) * rate;
 }
