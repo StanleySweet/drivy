@@ -211,3 +211,48 @@ console.log(cars);
 console.log(rentals);
 console.log(actors);
 console.log(rentalModifications);
+
+/**
+ *  @brief Updates the prices in the rentals depending
+ *
+ *  @param [in] cars object containing the cars list.
+ *  @param [in] rentals object containing the rentals list
+ *
+ */
+function GenerateRentalPrices(cars, rentals)
+{
+	for (let rental of rentals)
+	{
+		for (let car of cars)
+		{
+			if (car.id === rental.carId)
+			{
+				rental.price = ComputePrice(car.pricePerDay * ReturnNumberOfDays(rental.returnDate, rental.pickupDate), car.pricePerKm * rental.distance);
+			}
+		}
+	}
+}
+/**
+ *  @brief Return the number of days between two dates
+ *
+ *  @param [in] returnDate The Date the car should be returned
+ *  @param [in] pickupDate The Date the car was lent to the driver
+ *  @return The number of days between the two dates
+ *
+ */
+function ReturnNumberOfDays(returnDate, pickupDate)
+{
+	return (new Date(returnDate).getDay() - new Date(pickupDate).getDay()) + 1;
+}
+/**
+ *  @brief Computes the price of the current rental
+ *
+ *  @param [in] time the priceTag of the time the driver has had the car
+ *  @param [in] distance The distance the driver has travelled
+ *  @return time + distance
+ *
+ */
+function ComputePrice(time, distance)
+{
+	return +time + distance;
+}
