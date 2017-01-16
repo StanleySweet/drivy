@@ -251,7 +251,7 @@ function UpdateRental(car, rental) {
  *
  */
 function ReturnNumberOfDays(returnDate, pickupDate) {
-	return Math.ceil(((new Date(returnDate) - new Date(pickupDate)) / (1000 * 24 * 3600))) + 1;
+	return Math.ceil(((new Date(returnDate) - new Date(pickupDate)) / (1000 * 24 * 3600))) || 1;
 }
 
 /**
