@@ -269,11 +269,18 @@ function ComputePrice(time, distance, numberOfDays) {
 			rate = 1;
 			break;
 		case 2:
+		case 3:
+		case 4:
 			rate = 0.9;
 			break;
 		case 5:
 			rate = 0.7;
 			break;
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		case 10:
 		case 11:
 		default:
 			rate = 0.5;
