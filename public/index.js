@@ -240,7 +240,6 @@ function UpdateRental(car, rental) {
 
 	// Additional fee is added to the price at the end and not taken for commis
 	rental.price += additionalFee;
-	console.log("price" +  rental.price);
 }
 
 /**
@@ -265,7 +264,6 @@ function ReturnNumberOfDays(returnDate, pickupDate) {
  */
 function ComputePrice(time, distance, numberOfDays) {
 	let rate;
-	console.log(numberOfDays);
 	switch (numberOfDays) {
 		case 0:
 		case 1:
